@@ -1,10 +1,10 @@
 package org.example;
 
 import org.example.dish.Dessert;
-import org.example.dish.Dish;
 import org.example.dish.Entree;
 import org.example.dish.MainDish;
 import org.example.drink.HotDrink;
+import org.example.menu.Menu;
 
 public class Restaurant {
     public static void main(String[] args) {
@@ -21,6 +21,18 @@ public class Restaurant {
     // test sur les boissons
         Products hotdrink1 = new HotDrink("Thé vert", 4.0);
         System.out.println(hotdrink1.getDescription() + "... "+ hotdrink1.getPrice());
+
+        Products entree3 = new Entree("Soupe à la courge", 7.0);
+        Products main3 = new MainDish("Médaillon de chevreuil et accompagnement", 18.0);
+        Products dessert3 = new Dessert("Tarte à la raisinée", 4.0);
+        // test sur le menu
+        Products menu1 = new Menu();
+        ((Menu) menu1).addProduct(entree3);
+        ((Menu) menu1).addProduct(entree2);
+        ((Menu) menu1).addProduct(main3);
+        ((Menu) menu1).addProduct(dessert3);
+        ((Menu) menu1).displayMenu();
+        System.out.println("..." + menu1.getPrice());
     }
 
 }
