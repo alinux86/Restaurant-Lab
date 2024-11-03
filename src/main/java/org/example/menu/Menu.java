@@ -15,8 +15,6 @@ public class Menu implements Products {
     public void removeProduct(Products product) {
         products.remove(product);
     }
-// Faudrait mettre un string builder pour retourner la description complète en une string
-// Ici il affiche chaque produit et
     @Override
     public String getDescription() {
         for (Products product : products) {
@@ -33,7 +31,7 @@ public class Menu implements Products {
         }
         return total - 4.0;
     }
-
+// Pour ne pas utiliser getDescription et devoir caster
     public void displayMenu() {
         System.out.print("Menu :\n ");
         for (Products product : products) {
