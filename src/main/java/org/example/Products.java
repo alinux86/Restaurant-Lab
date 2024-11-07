@@ -3,7 +3,7 @@ package org.example;
 public interface Products {
     String getDescription();
     double getPrice();
+    String getType();
 
-    //ici on fait le test car il en faut un
 
 }

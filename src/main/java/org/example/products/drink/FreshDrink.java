@@ -1,4 +1,4 @@
-package org.example.drink;
+package org.example.products.drink;
 
 public class FreshDrink extends Drink {
     public FreshDrink(String description, double price) {

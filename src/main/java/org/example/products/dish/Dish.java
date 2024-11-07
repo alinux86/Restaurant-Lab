@@ -1,12 +1,14 @@
-package org.example.drink;
+package org.example.products.dish;
 
 import org.example.Products;
+import org.example.table.TableType;
 
-public abstract class Drink implements Products {
+public abstract class Dish implements Products {
     protected String description;
     protected double price;
 
-    public Drink(String description, double price) {
+
+    protected Dish(String description, double price) {
         this.description = description;
         this.price = price;
     }
@@ -19,6 +21,8 @@ public abstract class Drink implements Products {
     public double getPrice() {
         return price;
     }
+
+    public String getDishType(){
+        return ;
+    }
 }
-
-
