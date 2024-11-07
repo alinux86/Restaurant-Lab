@@ -13,6 +13,6 @@ public class DietFactory implements ProductFactory {
     }
 
     public Drink createDrink() {
-        return new FreshDrink("Fidji Water", 7.0);
+        return new FreshDrink("Fiji Water", 7.0);
     }
 }
