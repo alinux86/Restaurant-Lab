@@ -23,8 +23,6 @@ public class Table {
 
     public void addProduct(Products product) {
         products.add(product);
-    public void setState(State state){
-        this.state = state;
     }
     // si itération dans Table, c'est un void getProducts et on affiche dans la console.
     // mais on veut pouvoir créer une recette du restauran, plus simple d'avoir les products?
@@ -34,25 +32,19 @@ public class Table {
         //    System.out.println(product.getDescription());
         //on peut effacer le return car void
         return products;
-
-    public State getState(){
-        return state;
     }
 
-    public void welcomeClient() {
-        System.out.println("Welcome to " + client);
+    public String getClientName() {
+        return clientName;
     }
 
-    public void ServingProduct() {
-        for (Products p : productList) {}
+    public LocalDate getDate() {
+        return LocalDate.now();
     }
 
-    public void closingTable() {
-        System.out.println("Closing table");
+    public TableType getTableType() {
+        return tableType;
     }
 
-    public void displayTable() {
-        System.out.println("Displaying table");
-    }
 
 }

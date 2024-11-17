@@ -2,9 +2,9 @@ package org.example.products.drink;
 
 import org.example.table.TableType;
 
-public class HotDrink extends Drink {
+public class LightDrink extends Drink {
 
-    public HotDrink(String name, double price) {
+    public LightDrink(String name, double price) {
         super(name, price, TableType.DIET);
     }
 
