@@ -5,7 +5,7 @@ import org.example.Products;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu implements Products {
+public abstract class Menu implements Products {
     private List<Products> products = new ArrayList<>();
 
     public void addProduct(Products product) {
@@ -16,11 +16,11 @@ public class Menu implements Products {
         products.remove(product);
     }
     @Override
-    public String getDescription() {
+    public String getName() {
         for (Products product : products) {
-            System.out.println(product.getDescription());
+            System.out.println(product.getName());
         }
-        return products.get(0).getDescription();
+        return products.get(0).getName();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class Menu implements Products {
     public void displayMenu() {
         System.out.print("Menu :\n ");
         for (Products product : products) {
-            System.out.print("- " + product.getDescription() + "\n ");
+            System.out.print("- " + product.getName() + "\n ");
         }
         System.out.println();
     }

@@ -5,5 +5,4 @@ public enum TableType {
     DIET,
     VEGAN,
 
-
 }
