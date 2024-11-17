@@ -33,4 +33,18 @@ public class Table {
         //on peut effacer le return car void
         return products;
     }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public LocalDate getDate() {
+        return LocalDate.now();
+    }
+
+    public TableType getTableType() {
+        return tableType;
+    }
+
+
 }

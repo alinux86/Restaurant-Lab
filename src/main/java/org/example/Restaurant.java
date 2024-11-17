@@ -1,11 +1,13 @@
 package org.example;
 
 
-import org.example.products.dish.PleasureDish;
-import org.example.products.drink.AlcoholDrink;
+import org.example.AbstractFactory.ProductCreator;
 import org.example.table.*;
-
-
+import org.example.products.dish.*;
+import org.example.products.drink.*;
+import org.example.menu.Menu;
+import org.example.Products;
+import org.example.AbstractFactory.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,57 +16,55 @@ public class Restaurant {
 
     // définition de la classe. on déclare des liste qui vont stocker des objets
     private final List<Products> product;
-    private final List<Table> table;
+    private final List<Table> tables;
 
     // Constructor - initializes Arrays
     public Restaurant() {
         this.product = new ArrayList<>();
-        this.table = new ArrayList<>();
+        this.tables = new ArrayList<>();
+    }
+
+    // Methodes pour la classe restaurant (ajout de tables, ajout des produits aux tables, lister les tables avec les produits).
+        public void createTable(Table table) {
+            // le add c'est la méthode interne add de la liste Table
+            this.tables.add(table);
+        }
+
+
+    public void displayTable(Table table) {
+        System.out.println("Table Information:");
+        System.out.println("Client Name: " + table.getClientName());
+        System.out.println("Date: " + table.getDate());
+        System.out.println("Table Type: " + table.getTableType());
+        System.out.println("Products:");
+
+        for (Products product : table.getProducts()) {
+            System.out.println("  - " + product.getName() + " (" + product.getPrice() + ")");
+        }
+    }
+
+    public void displayAllTables() {
+        for (Table table : tables) {
+            displayTable(table);
+        }
     }
 
 
     // Méthode Main
         public static void main(String[] args) {
-        //Création d'une nouvelle table de type pleasure
-        Table table = new Table("John Doe", LocalDate.now(), TableType.PLEASURE);
+        Restaurant restaurant = new Restaurant();
 
-        // Client orders a steak and a wine
-        table.addProduct(new PleasureDish("Steak", 20.0));
-        table.addProduct(new AlcoholDrink("Wine", 10.0));
-        //table.getProducts();
-        System.out.println("Products for Table 1:");
-        for (Products product : table.getProducts()) {
-            System.out.println(product.getName() + ": " + product.getPrice());
-        }
+            Table table1 = new Table("Lucky Luke", LocalDate.now(), TableType.PLEASURE);
+            // Assuming you have a PleasureDish class that implements Products
+            table1.addProduct(new PleasureDish("Steak", 20.0)); // Add a specific product
+            restaurant.createTable(table1);
 
-        /*
-        A utiliser pour tester la fabrique abstraite
+            Table table2 = new Table("Granny", LocalDate.now(), TableType.VEGAN);
+            table2.addProduct(new VeganDish("Cabage and lentils", 12.0));
+            table2.addProduct(new LightDrink("Earl Grey Tea", 3.5));
+            restaurant.createTable(table2);
 
-        *   Table table1 = new Table("John Doe", LocalDate.now(), TableType.PLEASURE);
-    Table table2 = new Table("Lucky Luke", LocalDate.now(), TableType.DIET);
-
-    // Add products to table1
-    table1.addProduct(new PleasureDish("Steak", 20.0));
-    table1.addProduct(new AlcoholDrink("Wine", 10.0));
-
-    // Add products to table2
-    table2.addProduct(new DietDish("Salad", 15.0));
-    table2.addProduct(new NonAlcoholDrink("Water", 2.0));
-
-    // Print products for table1
-    System.out.println("Products for Table 1:");
-    for (Products product : table1.getProducts()) {
-        System.out.println(product.getName() + ": " + product.getPrice());
+            restaurant.displayAllTables();
     }
-
-    // Print products for table2
-    System.out.println("\nProducts for Table 2:");
-    for (Products product : table2.getProducts()) {
-        System.out.println(product.getName() + ": " + product.getPrice());
-    }
-        * */
-
-    }
-
 
 }
