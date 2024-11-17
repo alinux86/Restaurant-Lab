@@ -4,17 +4,20 @@ import org.example.Products;
 import org.example.table.TableType;
 
 public abstract class Dish implements Products {
-    protected String description;
+    protected String name;
     protected double price;
+    protected TableType type;
 
-
-    protected Dish(String description, double price) {
-        this.description = description;
+// est-ce que je dois mettre le type en paramètre? Si oui il doit être dans le constructeur, je pense.
+    // on dirait qu'il faut quand même créer une variable dans la classe. casselescouilles.
+    protected Dish(String name, double price, TableType type) {
+        this.name = name;
         this.price = price;
+        this.type = type;
     }
-
-    public String getDescription() {
-        return description;
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -22,7 +25,8 @@ public abstract class Dish implements Products {
         return price;
     }
 
-    public String getDishType(){
-        return ;
+    @Override
+    public TableType getType(){
+        return type;
     }
 }

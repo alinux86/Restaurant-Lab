@@ -1,9 +1,9 @@
 package org.example;
 
+import org.example.table.TableType;
+
 public interface Products {
-    String getDescription();
+    String getName();
     double getPrice();
-    String getType();
-
-
+    TableType getType();
 }

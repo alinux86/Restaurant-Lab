@@ -1,25 +1,29 @@
 package org.example.products.drink;
 
 import org.example.Products;
+import org.example.table.TableType;
 
 public abstract class Drink implements Products {
-    protected String description;
+    protected String name;
     protected double price;
-    protected
+    protected TableType type;
 
-    public Drink(String description, double price) {
-        this.description = description;
+    protected Drink(String name, double price, TableType type) {
+        this.name = name;
         this.price = price;
+        this.type = type;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    @Override
+    public String getName() { return name; }
 
     @Override
     public double getPrice() {
         return price;
     }
+
+    @Override
+    public TableType getType() { return type; }
 }
 
 

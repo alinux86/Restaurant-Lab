@@ -24,8 +24,13 @@ public class Table {
     public void addProduct(Products product) {
         products.add(product);
     }
-
+    // si itération dans Table, c'est un void getProducts et on affiche dans la console.
+    // mais on veut pouvoir créer une recette du restauran, plus simple d'avoir les products?
     public List<Products> getProducts() {
+        // implémenter la logique d'itération sur List products. On veut les produits de la table
+        //for (Products product : products) {
+        //    System.out.println(product.getDescription());
+        //on peut effacer le return car void
         return products;
     }
 }
