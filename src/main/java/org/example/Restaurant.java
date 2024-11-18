@@ -34,8 +34,8 @@ public class Restaurant {
         System.out.println("  Client Name: " + table.getClientName());
         System.out.println("  Date: " + table.getDate());
         System.out.println("  Table Type: " + table.getTableType());
+        System.out.println("Current State: " + table.getState());
         System.out.println("  Products:");
-
 
         for (Products product : table.getProducts()) {
             System.out.println("\t- " + product.getName() + " (" + product.getPrice() + ")");
@@ -53,26 +53,34 @@ public class Restaurant {
 
 
         public static void main(String[] args) {
-        Restaurant restaurant = new Restaurant();
-        Recipe recipe = Recipe.getInstance();
+            Restaurant restaurant = new Restaurant();
+            Recipe recipe = Recipe.getInstance();
 
-        Table table1 = new Table("Lucky Luke", LocalDate.now(), TableType.PLEASURE);
-        table1.addProduct(new PleasureDish("Steak", 22.0));
-        restaurant.createTable(table1);
+            Table table1 = new Table("Lucky Luke", LocalDate.now(), TableType.PLEASURE);
 
-        Table table2 = new Table("Granny", LocalDate.now(), TableType.VEGAN);
-        table2.addProduct(new VeganDish("Cabage and lentils", 12.0));
-        table2.addProduct(new LightDrink("Earl Grey Tea", 3.5));
-        restaurant.createTable(table2);
+            restaurant.createTable(table1);
+            // state variations table1
+            restaurant.displayTable(table1);
+            table1.welcomeClient(); // set state in_service
 
-        Recipe.getInstance().saveTables(restaurant.getTables()); // save tables in Recipe to check the final Bill
-        restaurant.displayAllTables();
+            table1.servingProduct(new PleasureDish("Steak", 22.0));
+            restaurant.displayTable(table1); // in_service
+            table1.closingTable(); // set state closed
+            restaurant.displayTable(table1); // display name and bill
 
-  /*      for (Table table : restaurant.getTables()) {
-            System.out.println("Total for table of " + table.getClientName() + ": " + table.calculateTableTotal() + "\n" );
-        }*/
+            Table table2 = new Table("Granny", LocalDate.now(), TableType.VEGAN);
+            table2.addProduct(new VeganDish("Cabage and lentils", 12.0));
+            table2.addProduct(new LightDrink("Earl Grey Tea", 3.5));
+            restaurant.createTable(table2);
 
-        double totalBill = recipe.calculateTotalPrice();
-        System.out.println("-------------------\n Recipe of today: " + totalBill);
+            Recipe.getInstance().saveTables(restaurant.getTables()); // save tables in Recipe to check the final Bill
+            restaurant.displayAllTables();
+
+      /*      for (Table table : restaurant.getTables()) {
+                System.out.println("Total for table of " + table.getClientName() + ": " + table.calculateTableTotal() + "\n" );
+            }*/
+
+            double totalBill = recipe.calculateTotalPrice();
+            System.out.println("-------------------\n Recipe of today: " + totalBill);
     }
 }
