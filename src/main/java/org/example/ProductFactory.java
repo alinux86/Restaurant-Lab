@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.dish.Dish;
-import org.example.drink.Drink;
+import org.example.products.dish.*;
+import org.example.products.drink.*;
 
 // Abstract factory for creation of Dish and Drink
 public interface ProductFactory {
