@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.AbstractFactory.ProductCreator;
+import org.example.decorator.ExtraDoseProduct;
 import org.example.singleton.Recipe;
 import org.example.table.*;
 import org.example.products.dish.*;
@@ -62,8 +63,12 @@ public class Restaurant {
             // state variations table1
             restaurant.displayTable(table1);
             table1.welcomeClient(); // set state in_service
-
             table1.servingProduct(new PleasureDish("Steak", 22.0));
+            // Use of decorator. Wrapping is apply after instantiation
+            Products strongBeer = new AlcoholDrink("Strong Beer", 8.0);
+            Products strongBeerWithExtraDose = new ExtraDoseProduct(strongBeer);
+            table1.addProduct(strongBeerWithExtraDose);
+
             restaurant.displayTable(table1); // in_service
             table1.closingTable(); // set state closed
             restaurant.displayTable(table1); // display name and bill
