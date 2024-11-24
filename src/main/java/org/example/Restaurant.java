@@ -1,14 +1,16 @@
 package org.example;
 
-import org.example.AbstractFactory.ProductCreator;
+import org.example.builder.DietBuilder;
+import org.example.builder.InterfaceBuilder;
+import org.example.builder.MenuDirector;
+import org.example.builder.MenuNormal;
 import org.example.decorator.ExtraDoseProduct;
 import org.example.singleton.Recipe;
 import org.example.table.*;
 import org.example.products.dish.*;
 import org.example.products.drink.*;
 import org.example.menu.Menu;
-import org.example.Products;
-import org.example.AbstractFactory.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,9 +76,17 @@ public class Restaurant {
             restaurant.displayTable(table1); // display name and bill
 
             Table table2 = new Table("Granny", LocalDate.now(), TableType.VEGAN);
-            table2.addProduct(new VeganDish("Cabage and lentils", 12.0));
+            table2.addProduct(new VeganDish("Cabbage and lentils", 12.0));
             table2.addProduct(new LightDrink("Earl Grey Tea", 3.5));
             restaurant.createTable(table2);
+
+            // Builder
+
+            InterfaceBuilder buildAMenuDiet = new DietBuilder("Menu Diet");
+            MenuDirector smallHunger = new MenuNormal(buildAMenuDiet);
+            // appel de la méthode buildMenu dans class MenuNormal
+            Menu normalDietMenu = smallHunger.buildMenu();
+            normalDietMenu.displayMenu();
 
             Recipe.getInstance().saveTables(restaurant.getTables()); // save tables in Recipe to check the final Bill
             restaurant.displayAllTables();
@@ -87,5 +97,7 @@ public class Restaurant {
 
             double totalBill = recipe.calculateTotalPrice();
             System.out.println("-------------------\n Recipe of today: " + totalBill);
+
+
     }
 }
