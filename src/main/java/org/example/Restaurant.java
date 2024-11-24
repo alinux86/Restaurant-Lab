@@ -1,6 +1,9 @@
 package org.example;
 
 import org.example.AbstractFactory.ProductCreator;
+import org.example.builder.DietBuilder;
+import org.example.builder.InterfaceBuilder;
+import org.example.builder.MenuNormal;
 import org.example.decorator.ExtraDoseProduct;
 import org.example.singleton.Recipe;
 import org.example.table.*;
@@ -78,6 +81,16 @@ public class Restaurant {
             table2.addProduct(new LightDrink("Earl Grey Tea", 3.5));
             restaurant.createTable(table2);
 
+            // Builder
+
+            InterfaceBuilder buildAMenuDiet = new DietBuilder();
+            MenuNormal smallHunger = new MenuNormal(buildAMenuDiet );
+            //buildAMenuDiet.buildEntree();
+            smallHunger.buildMenu();
+            // appel de la méthode buildMenu dans class MenuNormal
+            Menu normalDietMenu = smallHunger.buildMenu();
+            normalDietMenu.displayMenu();
+
             Recipe.getInstance().saveTables(restaurant.getTables()); // save tables in Recipe to check the final Bill
             restaurant.displayAllTables();
 
@@ -87,5 +100,7 @@ public class Restaurant {
 
             double totalBill = recipe.calculateTotalPrice();
             System.out.println("-------------------\n Recipe of today: " + totalBill);
+
+
     }
 }
