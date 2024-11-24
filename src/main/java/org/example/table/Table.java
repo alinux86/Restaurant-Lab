@@ -1,6 +1,7 @@
 package org.example.table;
 
 import org.example.Products;
+import org.example.bridge.Tax;
 import org.example.state.TableState;
 
 import java.time.LocalDate;
@@ -14,16 +15,18 @@ public class Table {
     private TableType tableType;
     private List<Products> products;
     private TableState state;
+    private Tax tableTax;
 
-    public Table(String clientName, LocalDate date, TableType tableType) {
+
+    public Table(String clientName, LocalDate date, TableType tableType, Tax tableTax) {
         this.clientName = clientName;
         this.date = date;
         this.tableType = tableType;
         this.products = new ArrayList<>();
         this.state = TableState.RESERVED; // by default
+        this.tableTax = tableTax;
     }
 
-    // Mehtod for Table
     public void addProduct(Products product) {
         products.add(product);
     }
@@ -44,7 +47,7 @@ public class Table {
         return tableType;
     }
 
-    public double calculateTableTotal() {
+    public final double calculateTableTotal() {
         double total = 0.0;
         for (Products product : products) {
             total += product.getPrice();
@@ -52,7 +55,7 @@ public class Table {
         return total;
     }
 
-    // Method for State
+    // ****  Method for State  *****
 
     public TableState getState() {
         return state;
@@ -77,6 +80,16 @@ public class Table {
 
     public void closingTable() {
         setState(TableState.CLOSED);
-        System.out.println("Closing table " + clientName + "\n Bill is: " + calculateTableTotal());
+        double total = calculateTableTotal();
+        double tax = getTax();
+        System.out.println("Closing table " + clientName + "\n Bill is: " + total +
+                                                            "\n Tax is: " + tax +
+                                                            "Total amount to pay: " + (total+tax));
+    }
+
+    // **** Method for Bridge ****
+    public double getTax(){
+        double total = calculateTableTotal();
+        return tableTax.getTax(total);
     }
 }

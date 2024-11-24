@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.bridge.CompanyTax;
+import org.example.bridge.PrivateTax;
 import org.example.builder.DietBuilder;
 import org.example.builder.InterfaceBuilder;
 import org.example.builder.MenuDirector;
@@ -59,7 +61,7 @@ public class Restaurant {
             Restaurant restaurant = new Restaurant();
             Recipe recipe = Recipe.getInstance();
 
-            Table table1 = new Table("Lucky Luke", LocalDate.now(), TableType.PLEASURE);
+            Table table1 = new Table("Lucky Luke", LocalDate.now(), TableType.PLEASURE, new CompanyTax());
 
             restaurant.createTable(table1);
             // state variations table1
@@ -76,7 +78,7 @@ public class Restaurant {
             System.out.println("\n *** Etat de la table 1: " + table1.getState() + " *** \n");
             restaurant.displayTable(table1); // display name and bill
 
-            Table table2 = new Table("Granny", LocalDate.now(), TableType.VEGAN);
+            Table table2 = new Table("Granny", LocalDate.now(), TableType.VEGAN, new PrivateTax());
             table2.addProduct(new VeganDish("Cabbage and lentils", 12.0));
             table2.addProduct(new LightDrink("Earl Grey Tea", 3.5));
             restaurant.createTable(table2);
