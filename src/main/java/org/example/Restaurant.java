@@ -63,16 +63,17 @@ public class Restaurant {
 
             restaurant.createTable(table1);
             // state variations table1
-            restaurant.displayTable(table1);
+            System.out.println("\n *** Etat de la table 1: " + table1.getState() + " *** \n");
             table1.welcomeClient(); // set state in_service
+            System.out.println("\n *** Etat de la table 1: " + table1.getState() + " *** \n");
             table1.servingProduct(new PleasureDish("Steak", 22.0));
             // Use of decorator. Wrapping is apply after instantiation
             Products strongBeer = new AlcoholDrink("Strong Beer", 8.0);
-            Products strongBeerWithExtraDose = new ExtraDoseProduct(strongBeer);
-            table1.addProduct(strongBeerWithExtraDose);
+            Products bigStrongBeer = new ExtraDoseProduct(strongBeer);
+            table1.addProduct(bigStrongBeer);
 
-            restaurant.displayTable(table1); // in_service
             table1.closingTable(); // set state closed
+            System.out.println("\n *** Etat de la table 1: " + table1.getState() + " *** \n");
             restaurant.displayTable(table1); // display name and bill
 
             Table table2 = new Table("Granny", LocalDate.now(), TableType.VEGAN);
@@ -81,13 +82,14 @@ public class Restaurant {
             restaurant.createTable(table2);
 
             // Builder
-
+            System.out.println("Labo 3 - Builder");
             InterfaceBuilder buildAMenuDiet = new DietBuilder("Menu Diet");
             MenuDirector smallHunger = new MenuNormal(buildAMenuDiet);
             // appel de la méthode buildMenu dans class MenuNormal
             Menu normalDietMenu = smallHunger.buildMenu();
             normalDietMenu.displayMenu();
 
+            System.out.println("Saving tables before checking the Recipe of the Day");
             Recipe.getInstance().saveTables(restaurant.getTables()); // save tables in Recipe to check the final Bill
             restaurant.displayAllTables();
 
