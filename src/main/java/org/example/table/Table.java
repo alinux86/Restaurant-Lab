@@ -2,11 +2,13 @@ package org.example.table;
 
 import org.example.Products;
 import org.example.bridge.Tax;
+import org.example.observer.Subscriber;
+import org.example.state.ReservedTable;
+import org.example.state.State;
 import org.example.state.TableState;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Table {
@@ -14,8 +16,10 @@ public class Table {
     private LocalDate date;
     private TableType tableType;
     private List<Products> products;
-    private TableState state;
+    // State of the table
+    private State state;
     private Tax tableTax;
+    private List <Subscriber> subscribers = new ArrayList<>();
 
 
     public Table(String clientName, LocalDate date, TableType tableType, Tax tableTax) {
@@ -23,9 +27,11 @@ public class Table {
         this.date = date;
         this.tableType = tableType;
         this.products = new ArrayList<>();
-        this.state = TableState.RESERVED; // by default
+
+        this.state =  ReservedTable.getInstance(); // instantiation by default
         this.tableTax = tableTax;
     }
+
 
     public void addProduct(Products product) {
         products.add(product);
@@ -47,6 +53,13 @@ public class Table {
         return tableType;
     }
 
+    public void showTable() {
+        double total = 0.0;
+        for (Products product : products) {
+            System.out.println(product.toString() + " \n");
+        }
+    }
+
     public final double calculateTableTotal() {
         double total = 0.0;
         for (Products product : products) {
@@ -57,13 +70,14 @@ public class Table {
 
     // ****  Method for State  *****
 
-    public TableState getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(TableState state) {
+    public void setState(State state) {
         this.state = state;
     }
+/*
 
     public void welcomeClient() {
         setState(TableState.IN_SERVICE);
@@ -85,11 +99,33 @@ public class Table {
         System.out.println("Closing table " + clientName + "\n Bill is: " + total +
                                                             "\n Tax is: " + tax +
                                                             "Total amount to pay: " + (total+tax));
+        notifySubscribers("CLOSED");
     }
+*/
 
     // **** Method for Bridge ****
     public double getTax(){
         double total = calculateTableTotal();
         return tableTax.getTax(total);
+    }
+
+    // **** Method for Observer ****
+    public void follow(Subscriber subscriber){
+        subscribers.add(subscriber);
+    }
+
+    public void unfollow(Subscriber subscriber){
+        subscribers.remove(subscriber);
+    }
+
+/*    public void notifySubscribers(String event) {
+        for (Subscriber subscriber : subscribers) {
+            subscriber.update(String event, this);
+        }
+    }*/
+    public void notifySubscribers(String event) {
+        for (Subscriber subscriber : subscribers) {
+            subscriber.update(event, this);
+        }
     }
 }

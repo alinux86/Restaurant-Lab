@@ -62,26 +62,30 @@ public class Restaurant {
             Recipe recipe = Recipe.getInstance();
 
             Table table1 = new Table("Lucky Luke", LocalDate.now(), TableType.PLEASURE, new CompanyTax());
+            table1.follow(recipe); // Recipe subscribes to this table.
 
             restaurant.createTable(table1);
-            // state variations table1
             System.out.println("\n *** Etat de la table 1: " + table1.getState() + " *** \n");
-            table1.welcomeClient(); // set state in_service
-            System.out.println("\n *** Etat de la table 1: " + table1.getState() + " *** \n");
-            table1.servingProduct(new PleasureDish("Steak", 22.0));
             // Use of decorator. Wrapping is apply after instantiation
             Products strongBeer = new AlcoholDrink("Strong Beer", 8.0);
             Products bigStrongBeer = new ExtraDoseProduct(strongBeer);
             table1.addProduct(bigStrongBeer);
 
-            table1.closingTable(); // set state closed
+            Table table2 = new Table("Granny", LocalDate.now(), TableType.VEGAN, new PrivateTax());
+            System.out.println("\n *** Etat de la table 2: " + table2.getState() + " *** \n");
+
+            table2.addProduct(new LightDrink("Earl Grey Tea", 3.5));
+            restaurant.createTable(table2);
+
             System.out.println("\n *** Etat de la table 1: " + table1.getState() + " *** \n");
             restaurant.displayTable(table1); // display name and bill
 
+/*
             Table table2 = new Table("Granny", LocalDate.now(), TableType.VEGAN, new PrivateTax());
             table2.addProduct(new VeganDish("Cabbage and lentils", 12.0));
             table2.addProduct(new LightDrink("Earl Grey Tea", 3.5));
             restaurant.createTable(table2);
+*/
 
             // Builder
             System.out.println("Labo 3 - Builder");

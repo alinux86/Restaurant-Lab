@@ -1,12 +1,13 @@
 package org.example.singleton;
 
 import org.example.Products;
+import org.example.observer.Subscriber;
 import org.example.table.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Recipe {
+public final class Recipe implements Subscriber {
 
     private static volatile Recipe instance = null;
     private final List<Table> tables;
@@ -17,14 +18,9 @@ public final class Recipe {
     }
 
     public static Recipe getInstance() {
-        if (instance == null) {
-            synchronized (Recipe.class) {
                 if (instance == null) {
                     instance = new Recipe();
                 }
-            }
-
-        }
         return instance;
     }
 
@@ -40,5 +36,13 @@ public final class Recipe {
             }
         }
         return totalPrice;
+    }
+
+    @Override
+    public void update(String event, Table table) {
+        if (event.equals("CLOSED")) {
+            tables.add(table);
+            System.out.println("Table closed. Total added to recipe: " + table.calculateTableTotal());
+        }
     }
 }
